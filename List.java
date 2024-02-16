@@ -29,40 +29,94 @@ public class List {
 
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
-        // Your code goes here
+        Node newNode = new Node(new CharData(chr));
+        newNode.next= first;
+        first = newNode;
+        size++;   
     }
     
     /** GIVE Textual representation of this list. */
     public String toString() {
-        // Your code goes here
+        Node current = first;
+        StringBuilder str= new StringBuilder();
+        while (current != null) {
+            str.append(current.toString());
+            current = current.next;
+        }
+        return str.toString();
     }
+       
 
     /** Returns the index of the first CharData object in this list
      *  that has the same chr value as the given char,
      *  or -1 if there is no such object in this list. */
     public int indexOf(char chr) {
-        // Your code goes here
+       Node current = first;
+       int index = 0;
+       while (current != null) { 
+            if (current.cp.equals(chr)) {
+            return index;
+            }
+            current = current.next;
+            index++;
+        }
+       return -1;
     }
 
     /** If the given character exists in one of the CharData objects in this list,
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-        // Your code goes here
+        int index = indexOf(chr);
+        if (index != -1) {
+            Node current = first;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+            current.cp.count++;
+        } else {
+            addFirst(chr);
+        }   
     }
 
     /** GIVE If the given character exists in one of the CharData objects
      *  in this list, removes this CharData object from the list and returns
      *  true. Otherwise, returns false. */
     public boolean remove(char chr) {
-        // Your code goes here
-    }
+        if (first == null) {
+            return false;
+        }
+        if (first.cp.equals(chr)) {
+                first = first.next;
+                size--;
+                return true;
+        }
+        Node current = first;
+        while (current.next != null) {
+            if (current.next.cp.equals(chr)) {
+                current.next = current.next.next;
+                 size--;
+                return true;
+            }
+            current = current.next;
+            }
+            return false; 
+        }
 
     /** Returns the CharData object at the specified index in this list. 
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        // Your code goes here
+        if (index <= 0 || index > this.size) {
+            throw new IndexOutOfBoundsException("illegal index " + index);
+        }
+        Node current = this.first;
+        for (int i = 0 ; i < index ; i++) {
+            current = current.next;
+        }
+        return current.cp;
+
+        
     }
 
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
