@@ -30,7 +30,7 @@ public class List {
     /** GIVE Adds a CharData object with the given character to the beginning of this list. */
     public void addFirst(char chr) {
         CharData charData = new CharData(chr);
-        Node newNode = new Node(charData, first);
+        Node newNode = new Node(charData);
         newNode.next= first;
         first = newNode;
         size++;   
@@ -111,7 +111,7 @@ public class List {
      *  If the index is negative or is greater than the size of this list, 
      *  throws an IndexOutOfBoundsException. */
     public CharData get(int index) {
-        if (index <= 0 || index > this.size) {
+        if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException("illegal index " + index);
         }
         Node current = this.first;
