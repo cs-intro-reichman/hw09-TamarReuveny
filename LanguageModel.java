@@ -33,56 +33,27 @@ public class LanguageModel {
 
     /** Builds a language model from the text in the given file (the corpus). */
 	public void train(String fileName) {
-		//String window = "";
-        //char c;
-       // In in = new In (fileName);
-       //for (int i = 1; i <= 4; i++) {
-         //   if (!in.isEmpty()) {
-           //     window += in.readChar();
-          //  }
-
-         //   while (!in.isEmpty()) {
-             //   c = in.readChar();
-             //   if (CharDataMap.containsKey(window)== true) {
-             //       List probs = CharDataMap.get(window);
-             //       probs.update(c);
-              //  } else {
-               //     List probs = new List ();
-               //     CharDataMap.put(window,probs);
-               //     probs.update(c);
-               // }
-              //  window = window.substring(1);
-             //   window +=c;
-           // }
-          //  for (List probs : CharDataMap.values()) {
-           //     calculateProbabilities(probs);
-          //  }
-        //}
-
         In in = new In(fileName);
         StringBuilder window = new StringBuilder();
         
-        // Initial fill of the window
         for (int i = 0; i < windowLength && !in.isEmpty(); i++) {
             char c = in.readChar();
             window.append(c);
         }
     
-        // Read through the rest of the file, character by character
+        // Read through the rest of the file
         while (!in.isEmpty()) {
             char nextChar = in.readChar();
             
-            // Add character to the window or update the window
             if (window.length() < windowLength) {
                 window.append(nextChar);
             } else {
-                // Update CharDataMap with the current window and next character
+               
                 String currentWindow = window.toString();
                 List probs = CharDataMap.getOrDefault(currentWindow, new List());
                 probs.update(nextChar);
                 CharDataMap.put(currentWindow, probs);
     
-                // Slide the window: remove the first character and add the nextChar
                 window.deleteCharAt(0);
                 window.append(nextChar);
             }
