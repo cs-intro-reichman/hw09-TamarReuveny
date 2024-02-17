@@ -64,11 +64,22 @@ public class LanguageModel {
 	// characters in the given list. */
 	public void calculateProbabilities(List probs) {				
         int totalCount = 0;
-        ListIterator iterator = probs.listIterator(0); 
-        while (iterator.hasNext()) {
-            CharData charData = iterator.next();
-            totalCount += charData.count;
+        for (int i = 0; i <probs.getSize(); i++) {
+            CharData chr = probs.get(i);
+            if (chr != null) {
+                totalCount += chr.count;
+            }
         }
+
+        double totalCp = 0;
+        for (int i = 0; i < probs.getSize(); i++) {
+            CharData chr = probs.get(i);
+            if (chr != null) {
+                chr.p = (double)(chr.count/totalCount);
+                chr.cp = (double)(totalCp + chr.p);
+                totalCp = chr.cp;
+            }
+        }  
 	}
 
     // Returns a random character from the given probabilities list.
