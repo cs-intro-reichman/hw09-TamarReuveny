@@ -31,9 +31,9 @@ public class List {
     public void addFirst(char chr) {
         CharData charData = new CharData(chr);
         Node newNode = new Node(charData);
-        newNode.next= first;
-        first = newNode;
-        size++;   
+        newNode.next= this.first;
+        this.first = newNode;
+        this.size++;   
     }
     
     /** GIVE Textual representation of this list. */
@@ -42,12 +42,12 @@ public class List {
             return "()";
         }
         Node current = first;
-        StringBuilder str= new StringBuilder();
+        StringBuilder str = new StringBuilder("(");
         while (current != null) {
-            str.append(current.toString());
+            str.append(current.cp + " ");
             current = current.next;
         }
-        return str.toString();
+        return str.substring(0,str.length()-1) + ")";
     }
        
 
@@ -71,16 +71,16 @@ public class List {
      *  increments its counter. Otherwise, adds a new CharData object with the
      *  given chr to the beginning of this list. */
     public void update(char chr) {
-        int index = indexOf(chr);
-        if (index != -1) {
-            Node current = first;
-            for (int i = 0; i < index; i++) {
-                current = current.next;
+        Node current = first;
+        while (current != null) {
+            if (current.cp.chr == chr) {
+                current.cp.count++;
+                return;
             }
-            current.cp.count++;
-        } else {
-            addFirst(chr);
-        }   
+            current = current.next;
+        }
+        addFirst(chr);
+           
     }
 
     /** GIVE If the given character exists in one of the CharData objects
