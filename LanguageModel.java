@@ -142,13 +142,21 @@ public class LanguageModel {
                 break;
             }
             List probs = CharDataMap.get(currentWindow);
-            char nextChar = getRandomChar(probs);
-            generated.append(nextChar);
+            char nextChar = getRandomChar(probs); 
+            generated.append(nextChar); 
+    
+            if (generated.length() >= textLength) {
+                break;
+            }
         }
-
-        return generated.toString();
+    
+        // Ensure the generated string is trimmed to the exact desired length in case it exceeds it.
+        if (generated.length() > textLength) {
+            return generated.substring(0, textLength);
+        } else {
+            return generated.toString();
+        }
     }
-	
 
     /** Returns a string representing the map of this language model. */
 	public String toString() {
