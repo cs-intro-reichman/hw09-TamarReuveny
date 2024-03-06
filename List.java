@@ -121,7 +121,6 @@ public class List {
         return current.cp;
         
     }
-
     /** Returns an array of CharData objects, containing all the CharData objects in this list. */
     public CharData[] toArray() {
 	    CharData[] arr = new CharData[size];

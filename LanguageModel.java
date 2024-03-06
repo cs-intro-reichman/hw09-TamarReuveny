@@ -97,7 +97,6 @@ public class LanguageModel {
         return probs.get(probs.getSize()-1).chr;
     }
 	
-
     /**
 	 * Generates a random text, based on the probabilities that were learned during training. 
 	 * @param initialText - text to start with. If initialText's last substring of size numberOfLetters
