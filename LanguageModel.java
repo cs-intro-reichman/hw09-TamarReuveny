@@ -106,26 +106,24 @@ public class LanguageModel {
 	 * @return the generated text
 	 */
 	public String generate(String initialText, int textLength) {
-        StringBuilder generated = new StringBuilder(initialText);
-        while (generated.length() < textLength) {
-            String currentWindow = generated.substring(Math.max(0, generated.length() - windowLength));
-            if (!CharDataMap.containsKey(currentWindow)) {
-                break;
+            int length = initialText.length();
+            int i = 0;
+            if (length < windowLength) {
+             return initialText;
             }
-            List probs = CharDataMap.get(currentWindow);
-            char nextChar = getRandomChar(probs); 
-            generated.append(nextChar); 
-    
-            if (generated.length() >= textLength) {
-                break;
+             String generatedText = initialText, window = "";
+             List probs;
+             while (generatedText.length() - length < textLength) {
+                 window = generatedText.substring(i, i + windowLength);
+                 probs = CharDataMap.get(window);
+                 if (probs == null) {
+                     return generatedText;
+                     generatedText += getRandomChar((probs));
+                     i++;
+                 }
+                 return generatedText;
+             
             }
-        }
-    
-        // Ensure the generated string is trimmed to the exact desired length in case it exceeds it.
-        if (generated.length() > textLength) {
-            return generated.substring(0, textLength);
-        } else {
-            return generated.toString();
         }
     }
 
