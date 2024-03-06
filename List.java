@@ -143,6 +143,7 @@ public class List {
             current = current.next;
             i++;
         }
+        
         // Returns an iterator that starts in that element
 	    return new ListIterator(current);
     }

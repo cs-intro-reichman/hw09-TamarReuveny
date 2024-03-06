@@ -115,14 +115,12 @@ public class LanguageModel {
              while (generatedText.length() - length < textLength) {
                  window = generatedText.substring(i, i + windowLength);
                  probs = CharDataMap.get(window);
-                 if (probs == null) {
+                 if (probs == null) 
                      return generatedText;
-                     generatedText += getRandomChar((probs));
+                     generatedText += getRandomChar(probs);
                      i++;
-                 }
-                 return generatedText;
-             
-            }
+            }     
+            return generatedText;
         }
     
 
